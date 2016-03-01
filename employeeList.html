@@ -54,6 +54,21 @@
 					ng-model="employee.country"></select>
 			</div>
 		</div>
+		<!-- <div class="control-group">
+			<label id="name-lbl" class="control-label required" for="name"> State</label>
+			<div class="controls">
+				<select ng-disabled="!user.country" ng-options="state as state.name for state in stateList | filter:{ $: user.country.name} track by state.name"  ng-model="user.state">
+				<option value="0">--Select--</option></select>
+			</div>
+		</div> 
+		
+		<div class="control-group">
+			<label id="name-lbl" class="control-label required" for="name"> State</label>
+			<div class="controls">
+				<select ng-disabled="!user.state" ng-options="city as city.name for city in cityList | filter:{ $: user.state.name} track by city.name"  ng-model="user.city">
+				<option value="0">--Select--</option></select>
+			</div>
+		</div> -->
 		<div class="control-group">
 			<div class="controls">
 				<button type="submit" ng-hide="isUpdate" ng-click="savetolocal()"
