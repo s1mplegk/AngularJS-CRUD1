@@ -1,0 +1,224 @@
+
+
+
+	<form class="form-horizontal" ng-init="getAllEmployees()">
+
+		<legend>Employee Details</legend>
+		<input type="hidden" ng-model="employee._id" />
+		<div class="control-group">
+			<label class="control-label required">First Name:</label>
+			<div class="controls">
+				<input type="text" ng-model="employee.firstName" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label required">Last Name:</label>
+			<div class="controls">
+				<input type="text" ng-model="employee.lastName" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label required">Gender:</label>
+			<div class="controls">
+				<input type="radio" name=gender value="Male"
+					ng-model="employee.gender">Male <input type="radio"
+					name=gender value="Female" ng-model="employee.gender">Female
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label required">Date of birth:</label>
+			<div class="controls">
+				<div class="date" id="datepicker_dateOfBirth">
+					<input ng-model="employee.dateOfBirth" placeholder="DD/MM/YYYY"
+						readonly="true" required="required" /> <span class="add-on"
+						id="icon"><i class="icon-calendar"></i></span>
+				</div>
+			</div>
+		</div>
+				<div class="control-group">
+			<label class="control-label required">Qualifications:</label>
+			<div class="controls">
+				<div >
+				<label ng-repeat="qual in qualificationsList">
+					<input type="checkbox" checklist-model="employee.qualifications" checklist-value="qual"> {{qual.name}}
+					</label>
+				</div>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label required">Country:</label>
+			<div class="controls">
+				<select name="country" id="country"
+					ng-options="country as country.name for country in countryList track by country.name"
+					ng-model="employee.country"></select>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" ng-hide="isUpdate" ng-click="savetolocal()"
+					class="btn btn-primary">Add to Local storage</button>
+				<button type="submit" ng-show="isUpdate" ng-click="updateEmployee()"
+					class="btn btn-primary">Update Employee</button>
+				<button type="submit" ng-show="isUpdate" ng-click="newEmployee()"
+					class="btn btn-warning">Cancel</button>
+			</div>
+		</div>
+
+		<div>
+			<legend>
+				Data from Local Storage
+				<div ng-show="employeeListLocal">
+					<button type="submit" ng-click="savetoCloud()" class="btn btn-info">Sync
+						to Cloud</button>
+				</div>
+				<div ng-hide="employeeListLocal">
+					<label>No data found in local storage</label>
+				</div>
+			</legend>
+			<div ng-show="employeeListLocal">
+				<table class="table table-bordered table-striped" id="demotable1">
+					<thead>
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Gender</th>
+							<th>Date of Birth</th>
+							<th>Country</th>
+							<th>Qualifications</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Gender</th>
+							<th>Date of Birth</th>
+							<th>Country</th>
+							<th>Qualifications</th>
+
+						</tr>
+					</tfoot>
+
+					<tbody>
+						<tr
+							ng-repeat="employee in employeeListLocal | orderBy:'firstName'">
+							<td>{{employee.firstName}}</td>
+							<td>{{employee.lastName}}</td>
+							<td>{{employee.gender}}</td>
+							<td>{{employee.dateOfBirth}}</td>
+							<td>{{employee.country.name}}</td>
+							<td>
+								<div ng-repeat="qual in employee.qualifications">
+								{{qual.name}}
+								<span ng-show=" ! $last ">, </span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+
+		</div>
+		<legend>Data from Cloud</legend>
+		<h3>Filters</h3>
+		<div class="control-group">
+			<label class="control-label required">Gender:</label>
+			<div class="controls">
+				<input type="radio" name=filtergender value="Male"
+					ng-model="fgender">Male <input type="radio"
+					name=filtergender value="Female" ng-model="fgender">Female
+
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label required">Name:</label>
+			<div class="controls">
+				<input type="text" ng-model="searchfirstName" />
+			</div>
+
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label required">Date of birth:</label>
+			<div class="controls">
+				<div class="date" id="Searchdatepicker_dateOfBirth">
+					<input ng-model="search.dateOfBirth" placeholder="DD/MM/YYYY"
+						readonly="true" required="required" /> <span class="add-on"
+						id="icon"><i class="icon-calendar"></i></span>
+				</div>
+			</div>
+		</div>
+		<button type="submit" ng-click="clearFilters()" class="btn btn-info">Reset Filters
+						</button>
+		<table class="table table-bordered table-striped" id="demotable1">
+			<thead>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Gender</th>
+					<th>Date of Birth</th>
+					<th>Country</th>
+					<th>Qualifications</th>
+					<th>Update</th>
+					<th>Delete</th>
+
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Gender</th>
+					<th>Date of Birth</th>
+					<th>Country</th>
+					<th>Qualifications</th>
+					<th>Update</th>
+					<th>Delete</th>
+
+				</tr>
+			</tfoot>
+
+			<tbody>
+				<tr
+					ng-repeat="employee in employeeList | filter:fgender:true | filter:searchfirstName |filter:search">
+					<td>{{employee.firstName}}</td>
+					<td>{{employee.lastName}}</td>
+					<td>{{employee.gender}}</td>
+					<td>{{employee.dateOfBirth}}</td>
+					<td>{{employee.country.name}}</td>
+					<td>
+						<div ng-repeat="qual in employee.qualifications">
+						{{qual.name}}
+						<span ng-show=" ! $last ">, </span>
+						</div>
+					</td>
+					<td><button type="submit" ng-click="getEmployee(employee._id)"
+							class="btn btn-success">Update</button></td>
+					<td><button type="submit" ng-click="deleteEmployee(employee)"
+							class="btn btn-danger">Delete</button></td>
+				</tr>
+			</tbody>
+
+		</table>
+
+	</form>
+
+	<script type="text/javascript">
+		$(function() {
+
+			$('#datepicker_dateOfBirth').datepicker({
+				format : "dd/mm/yyyy",
+				autoclose : true,
+
+			});
+			
+			$('#Searchdatepicker_dateOfBirth').datepicker({
+				format : "dd/mm/yyyy",
+				autoclose : true,
+
+			});
+		});
+	</script>
+

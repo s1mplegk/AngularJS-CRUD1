@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="resources/style/template.css" />
+<link rel="stylesheet" type="text/css" href="resources/style/sticky-footer.css">
+
+<script src="resources/js/angular.min.js"></script>
+<script src="resources/js/angular-ui-router.min.js"></script>
+<script src="resources/js/checklist-model.js"></script>
+<script src="resources/js/app.js"></script>
+<title>Insert title here</title>
+</head>
+
+<body class="site com_content view-form layout-edit task"
+	data-target=".navbar" data-spy="scroll"  ng-app="employeeDetails">
+	
+<div id="wrap">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<button type="button" class="btn btn-navbar" data-toggle="collapse"
+						data-target=".nav-collapse">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="brand active" href="/"> Sample App </a>
+					<nav class="nav-collapse collapse">
+						<!-- Root menus starts here -->
+						<div id="menu">
+							<ul class="nav">
+								<li><a ui-sref="home">Home</a></li> 
+								<li><a ui-sref="employee">Manage Employee</a></li>
+								<li><a ui-sref="upload">Upload Images</a></li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<div class="body">
+			<!-- Container started -->
+			<div class="container">
+				<div class="header">
+					<div class="header-inner"  ui-view>
+					
+						<br> <br>
+					</div>
+				</div>
+				<div class="row-fluid">
+					
+				</div>
+			</div>
+		</div>
+		<div id="push"></div>
+	</div>
+
+
+	<!-- Footer -->
+	<div class="footer">
+		<div class="container">
+			<hr />
+			<p class="pull-right">
+				<a href="#" id="back-top">Back To Top</a>
+			</p>
+			<p>&copy;Copyright 2014-15</p>
+		</div>
+	</div>
+
+</body>
+
+</html>
